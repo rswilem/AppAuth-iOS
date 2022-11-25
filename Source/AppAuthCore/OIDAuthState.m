@@ -138,27 +138,6 @@ static const NSUInteger kExpiryTimeTolerance = 60;
                            // inspects response and processes further if needed (e.g. authorization
                            // code exchange)
                            if (authorizationResponse) {
-                             if ([authorizationRequest.responseType
-                                     isEqualToString:OIDResponseTypeCode]) {
-                               // if the request is for the code flow (NB. not hybrid), assumes the
-                               // code is intended for this client, and performs the authorization
-                               // code exchange
-                               OIDTokenRequest *tokenExchangeRequest =
-                                   [authorizationResponse tokenExchangeRequest];
-                               [OIDAuthorizationService performTokenRequest:tokenExchangeRequest
-                                              originalAuthorizationResponse:authorizationResponse
-                                   callback:^(OIDTokenResponse *_Nullable tokenResponse,
-                                                         NSError *_Nullable tokenError) {
-                                                OIDAuthState *authState;
-                                                if (tokenResponse) {
-                                                  authState = [[OIDAuthState alloc]
-                                                      initWithAuthorizationResponse:
-                                                          authorizationResponse
-                                                                      tokenResponse:tokenResponse];
-                                                }
-                                                callback(authState, tokenError);
-                               }];
-                             } else {
                                // hybrid flow (code id_token). Two possible cases:
                                // 1. The code is not for this client, ie. will be sent to a
                                //    webservice that performs the id token verification and token
