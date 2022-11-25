@@ -148,7 +148,6 @@ static const NSUInteger kExpiryTimeTolerance = 60;
                                OIDAuthState *authState = [[OIDAuthState alloc]
                                    initWithAuthorizationResponse:authorizationResponse];
                                callback(authState, authorizationError);
-                             }
                            } else {
                              callback(nil, authorizationError);
                            }
