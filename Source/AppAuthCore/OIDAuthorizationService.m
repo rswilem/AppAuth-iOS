@@ -105,6 +105,10 @@ NS_ASSUME_NONNULL_BEGIN
     @return YES if the URLs match down to the path level (query params are ignored).
  */
 + (BOOL)URL:(NSURL *)URL matchesRedirectionURL:(NSURL *)redirectionURL {
+  if ([URL.absoluteString hasPrefix:redirectionURL.absoluteString]) {
+    return YES;
+  }
+
   NSURL *standardizedURL = [URL standardizedURL];
   NSURL *standardizedRedirectURL = [redirectionURL standardizedURL];
 
